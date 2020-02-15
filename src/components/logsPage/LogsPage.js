@@ -18,6 +18,8 @@ class LogsPage extends React.Component {
     };
 
     this.selectLog = this.selectLog.bind(this);
+    this.loadLogsToDB = this.loadLogsToDB.bind(this);
+    this.clearLogsFromDB = this.clearLogsFromDB.bind(this);
   }
 
   componentDidMount() {
@@ -40,8 +42,16 @@ class LogsPage extends React.Component {
     this.setState({selectedLogs: selectedLogs});
   }
 
+  loadLogsToDB() {
+    console.log("load logs");
+    // TODO create handler for loading logs
+  }
+
+  clearLogsFromDB() {
+    // TODO create handler for clearing logs
+  }
+
   render() {
-    console.log(this);
     return (
       <div>
         {this.props.loading ? (
@@ -52,14 +62,14 @@ class LogsPage extends React.Component {
             <div className="log-tables">
               <div className="available-logs-table">
                 <h5>Available Logs</h5>
-                <Button variant="primary">Load</Button>
+                <Button variant="primary" onClick={this.loadLogsToDB}>Load</Button>
                 <AvailableLogsTable
                   selectLog={this.selectLog}
                   logs={this.props.logs}/>
               </div>
               <div className="loaded-logs-table">
                 <h5>Loaded Logs</h5>
-                <Button variant="danger">Clear</Button>
+                <Button variant="danger" onClick={this.clearLogsFromDB}>Clear</Button>
                 <LoadedLogsTable
                   logs={this.props.logs}/>
               </div>

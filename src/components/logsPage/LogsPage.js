@@ -5,11 +5,17 @@ import Spinner from "../common/Spinner";
 import AvailableLogsTable from "./AvailableLogsTable";
 import {bindActionCreators} from "redux";
 import * as logActions from "../../redux/actions/logActions";
+import {includes, pull} from "lodash";
 
 class LogsPage extends React.Component {
-  state = {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedLogs: []
+    };
 
-  };
+    this.selectLog = this.selectLog.bind(this);
+  }
 
   componentDidMount() {
     const {logs, actions} = this.props;
@@ -20,14 +26,28 @@ class LogsPage extends React.Component {
     }
   }
 
+  selectLog(id) {
+    const selectedLogs = this.state.selectedLogs;
+    console.log(this);
+    if (!includes(selectedLogs, id)) {
+      selectedLogs.push(id);
+    } else {
+      pull(selectedLogs, id);
+    }
+    this.setState({selectedLogs: selectedLogs});
+  }
+
   render() {
+    console.log(this);
     return (
       <div>
         {this.props.loading ? (
           <Spinner/>
         ) : (
           <div>
-            <AvailableLogsTable logs={this.props.logs}/>
+            <AvailableLogsTable
+              selectLog={this.selectLog}
+              logs={this.props.logs}/>
           </div>
         )}
       </div>

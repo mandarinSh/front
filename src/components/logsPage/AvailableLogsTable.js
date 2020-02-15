@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {FormCheck, Table} from "react-bootstrap";
+import {Form, Table} from "react-bootstrap";
 
-const AvailableLogsTable = ({logs}) => (
+const AvailableLogsTable = ({logs, selectLog}) => (
   <Table striped bordered hover>
     <thead>
     <tr>
@@ -17,7 +17,10 @@ const AvailableLogsTable = ({logs}) => (
       return (
         <tr key={log.id}>
           <td>
-            <FormCheck type="checkbox" id={log.id}/>
+            <Form.Control onChange={() => selectLog(log.id)} type="checkbox" id={log.id}/>
+              {/*<Form.Check type="checkbox" id={log.id}/>*/}
+            {/*</Form.Control>*/}
+
           </td>
           <td>
             {log.title}
@@ -36,7 +39,8 @@ const AvailableLogsTable = ({logs}) => (
 );
 
 AvailableLogsTable.propTypes = {
-  logs: PropTypes.array.isRequired
+  logs: PropTypes.array.isRequired,
+  selectLog: PropTypes.func.isRequired
 };
 
 export default AvailableLogsTable;

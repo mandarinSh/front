@@ -3,9 +3,12 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import Spinner from "../common/Spinner";
 import AvailableLogsTable from "./AvailableLogsTable";
+import LoadedLogsTable from "./LoadedLogsTable";
 import {bindActionCreators} from "redux";
 import * as logActions from "../../redux/actions/logActions";
 import {includes, pull} from "lodash";
+import "./logsPage.css";
+import {Button} from "react-bootstrap";
 
 class LogsPage extends React.Component {
   constructor(props) {
@@ -44,10 +47,23 @@ class LogsPage extends React.Component {
         {this.props.loading ? (
           <Spinner/>
         ) : (
-          <div>
-            <AvailableLogsTable
-              selectLog={this.selectLog}
-              logs={this.props.logs}/>
+          <div className="">
+            <h2>Select Logs</h2>
+            <div className="log-tables">
+              <div className="available-logs-table">
+                <h5>Available Logs</h5>
+                <Button variant="primary">Load</Button>
+                <AvailableLogsTable
+                  selectLog={this.selectLog}
+                  logs={this.props.logs}/>
+              </div>
+              <div className="loaded-logs-table">
+                <h5>Loaded Logs</h5>
+                <Button variant="danger">Clear</Button>
+                <LoadedLogsTable
+                  logs={this.props.logs}/>
+              </div>
+            </div>
           </div>
         )}
       </div>

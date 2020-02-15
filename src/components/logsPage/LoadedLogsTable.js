@@ -1,12 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Form, Table} from "react-bootstrap";
+import {Table} from "react-bootstrap";
 
-const AvailableLogsTable = ({logs, selectLog}) => (
+const LoadedLogsTable = ({logs}) => (
   <Table bordered hover>
     <thead>
     <tr>
-      <th>#</th>
       <th>Title</th>
       <th>Semester</th>
       <th>Size</th>
@@ -16,12 +15,6 @@ const AvailableLogsTable = ({logs, selectLog}) => (
     {logs.map(log => {
       return (
         <tr key={log.id}>
-          <td>
-            <Form.Control onChange={() => selectLog(log.id)} type="checkbox" id={log.id}/>
-              {/*<Form.Check type="checkbox" id={log.id}/>*/}
-            {/*</Form.Control>*/}
-
-          </td>
           <td>
             {log.title}
           </td>
@@ -38,9 +31,8 @@ const AvailableLogsTable = ({logs, selectLog}) => (
   </Table>
 );
 
-AvailableLogsTable.propTypes = {
-  logs: PropTypes.array.isRequired,
-  selectLog: PropTypes.func.isRequired
+LoadedLogsTable.propTypes = {
+  logs: PropTypes.array.isRequired
 };
 
-export default AvailableLogsTable;
+export default LoadedLogsTable;

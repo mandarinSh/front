@@ -1,3 +1,24 @@
+const logs = [
+  {
+    id: 1,
+    title: "Log1 from course 1",
+    semester: "autumn 2010",
+    size: 2400
+  },
+  {
+    id: 2,
+    title: "Log2 from course 1",
+    semester: "autumn 2012",
+    size: 2500
+  },
+  {
+    id: 3,
+    title: "Log1 from course 3",
+    semester: "spring 2010",
+    size: 5000
+  }
+];
+
 const courses = [
   {
     id: 1,
@@ -86,6 +107,7 @@ const newCourse = {
 
 // Using CommonJS style export so we can consume via Node (without using Babel-node)
 module.exports = {
+  logs,
   newCourse,
   courses,
   authors

@@ -5,7 +5,7 @@ import AboutPage from "./about/AboutPage";
 import Header from "./common/Header";
 import PageNotFound from "./PageNotFound";
 import CoursesPage from "./courses/CoursesPage";
-import LogsPage from "./logs/LogsPage";
+import LogsPage from "./logsPage/LogsPage";
 import ManageCoursePage from "./courses/ManageCoursePage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

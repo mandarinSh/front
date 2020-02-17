@@ -19,6 +19,33 @@ const logs = [
   }
 ];
 
+const tasks = [
+  {
+    id: 1,
+    title: "Task1 for analyzing activity",
+    description: "description of task bla-bla-blaaa",
+    parameters: {
+      user_id: "3fsj23jl",
+      mode: "all"
+    }
+  },
+  {
+    id: 2,
+    title: "Task3 for analyzing activity",
+    description: "description of task bla-bla-blaaa",
+    parameters: {
+      user_id: "3fsj23jl",
+      mode: "user_only"
+    }
+  },
+  {
+    id: 3,
+    title: "Task3 for analyzing activity",
+    description: "description of task bla-bla-blaaa",
+    parameters: {}
+  }
+];
+
 const courses = [
   {
     id: 1,
@@ -107,6 +134,7 @@ const newCourse = {
 
 // Using CommonJS style export so we can consume via Node (without using Babel-node)
 module.exports = {
+  tasks,
   logs,
   newCourse,
   courses,

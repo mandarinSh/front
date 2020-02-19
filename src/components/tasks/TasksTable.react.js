@@ -30,10 +30,10 @@ const TasksTable = ({tasks, runTask, stopTask}) => (
               </>                    
           </td>
           <td>
-            <Button variant="success" onClick={() => runTask(task.id)}>Run</Button>
+            <Button variant="success" onClick={() => runTask(task)}>Run</Button>
           </td>
           <td>
-            <Button variant="danger" onClick={() => stopTask(task.id)}>Stop</Button>
+            <Button variant="danger" onClick={() => stopTask(task)}>Stop</Button>
           </td>
         </tr>
       )

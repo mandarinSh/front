@@ -1,17 +1,7 @@
-.log-tables {
-    display: inline-flex;
-    width: 100%;
-}
-
-.available-logs-table {
-    margin-right: 100px;
-    width: -webkit-fill-available;
-}
-
-.loaded-logs-table {
-    width: -webkit-fill-available;
-}
-
 button {
     margin-bottom: 10px;
+}
+
+.modal-body {
+    margin: auto;
 }

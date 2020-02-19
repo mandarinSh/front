@@ -33,7 +33,7 @@ class LogsPage extends React.Component {
 
   selectLog(id) {
     const selectedLogs = this.state.selectedLogs;
-    console.log(this);
+    console.log(selectedLogs);
     if (!includes(selectedLogs, id)) {
       selectedLogs.push(id);
     } else {

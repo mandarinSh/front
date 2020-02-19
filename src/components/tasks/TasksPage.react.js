@@ -6,17 +6,16 @@ import TasksTable from "./TasksTable.react";
 import {bindActionCreators} from "redux";
 import * as taskActions from "../../redux/actions/taskActions";
 import "./tasksPage.css";
-import {Button} from "react-bootstrap";
+import {Button, Form, Modal} from "react-bootstrap";
+import {isEmpty, mapValues, keys} from "lodash";
 
 class TasksPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+        isTaskSelectedToRun: false,
+        selectedTask: {}
     };
-
-    this.runTask = this.runTask.bind(this);
-    this.stopTask = this.stopTask.bind(this);
   }
 
   componentDidMount() {
@@ -28,15 +27,76 @@ class TasksPage extends React.Component {
     }
   }
 
-  runTask(id) {
-    console.log(`run task ${id}`);
-  }
+  runTask = () => {
+    console.log("run task");
+  };
 
-  stopTask(id) {
-    console.log(`stop task ${id}`);
-  }
+  openTaskModal = (task) => {
+    console.log(`run task ${task.id}`);
+    this.setState({isTaskSelectedToRun: true});
+    this.setState({selectedTask: task});
+  };
+
+  stopTask = (task) => {
+    console.log(`stop task ${task.id}`);
+  };
+
+  getParameters = (e) => {
+    console.log(e.target.value);
+  };
+
+  getParameterInput = (parameters) => {
+      let values = [];
+      console.log(parameters);
+      mapValues(parameters, function(value) {
+          
+          values.push(value);
+      });
+
+      let paramKeys = keys(parameters);
+      console.log(keys);
+
+      if (!isEmpty(paramKeys)) {
+        return (
+            paramKeys.map(key => {
+                  return (
+                        <span key={key}>
+                            <>
+                            <Form.Group>
+                                <Form.Label>Parameter {key}</Form.Label>
+                                <Form.Control className="parameter-input" onChange={(e) => this.getParameters(e)}/>
+                            </Form.Group>  
+                            </>
+                        </span>                  
+                  )
+              })
+          );
+      }    
+  };
+
+  getTaskModalWithNoParameters = () => {
+    return (
+        <span>
+            <Form.Group>
+                 <Form.Label>This task does not need  any parameters to run!
+                Confirm running this task.</Form.Label>
+            </Form.Group>
+           
+        </span>
+    );
+  };
+
+  hideTaskModal = () => {
+      this.setState({isTaskSelectedToRun: false});
+  };
+
+
 
   render() {
+    const {selectedTask, isTaskSelectedToRun} = this.state;
+    console.log(this.state.isTaskSelectedToRun);
+    console.log(selectedTask);
+
     return (
       <div>
         {this.props.loading ? (
@@ -48,14 +108,39 @@ class TasksPage extends React.Component {
               <div className="available-tasks-table">
                 <h5>Available Tasks</h5>
                 <TasksTable
-                  runTask={this.runTask}
+                  runTask={this.openTaskModal}
                   stopTask={this.stopTask}
                   tasks={this.props.tasks}/>
+                  
               </div>
             </div>
             <Button>Results</Button>
-          </div>
-        )}
+            {this.state.isTaskSelectedToRun && 
+            <Modal  
+                aria-labelledby="contained-modal-title-vcenter" 
+                centered 
+                show={isTaskSelectedToRun} 
+                size="lg"
+                onHide={this.hideTaskModal}>
+                <Modal.Header>
+                    <Modal.Title>
+                        {selectedTask.title}
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="modal-body">
+                    <h5>Parameters</h5>
+                        {!isEmpty(selectedTask.parameters) && this.getParameterInput(selectedTask.parameters)}
+                        {isEmpty(selectedTask.parameters) && this.getTaskModalWithNoParameters()}
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={this.hideTaskModal}>Cancel</Button>
+                    <Button variant="primary" onClick={this.runTask}>Run</Button>
+                </Modal.Footer>
+            </Modal>}
+          </div>          
+        )}        
       </div>
     );
   }

@@ -34,7 +34,7 @@ const tasks = [
     title: "Task3 for analyzing activity",
     description: "description of task bla-bla-blaaa",
     parameters: {
-      user_id: "3fsj23jl",
+      user_id: "2fsjfghj2",
       mode: "user_only"
     }
   },

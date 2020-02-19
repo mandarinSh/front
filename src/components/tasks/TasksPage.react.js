@@ -14,7 +14,8 @@ class TasksPage extends React.Component {
     super(props);
     this.state = {
         isTaskSelectedToRun: false,
-        selectedTask: {}
+        selectedTask: {},
+        taskToRunParameters: []
     };
   }
 
@@ -41,20 +42,20 @@ class TasksPage extends React.Component {
     console.log(`stop task ${task.id}`);
   };
 
-  getParameters = (e) => {
-    console.log(e.target.value);
+  getParameters = (e, key) => {
+    let {taskToRunParameters} = this.state;
+    taskToRunParameters[`${key}`] = e.target.value;
+    this.setState({taskToRunParameters: taskToRunParameters});
   };
 
   getParameterInput = (parameters) => {
       let values = [];
-      console.log(parameters);
       mapValues(parameters, function(value) {
           
           values.push(value);
       });
 
       let paramKeys = keys(parameters);
-      console.log(keys);
 
       if (!isEmpty(paramKeys)) {
         return (
@@ -64,7 +65,7 @@ class TasksPage extends React.Component {
                             <>
                             <Form.Group>
                                 <Form.Label>Parameter {key}</Form.Label>
-                                <Form.Control className="parameter-input" onChange={(e) => this.getParameters(e)}/>
+                                <Form.Control className="parameter-input" onChange={(e) => this.getParameters(e, key)}/>
                             </Form.Group>  
                             </>
                         </span>                  
@@ -87,15 +88,17 @@ class TasksPage extends React.Component {
   };
 
   hideTaskModal = () => {
-      this.setState({isTaskSelectedToRun: false});
+      this.setState({
+          isTaskSelectedToRun: false, 
+          taskToRunParameters: [], 
+          selectedTask: {}
+        });
   };
 
 
 
   render() {
     const {selectedTask, isTaskSelectedToRun} = this.state;
-    console.log(this.state.isTaskSelectedToRun);
-    console.log(selectedTask);
 
     return (
       <div>

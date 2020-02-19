@@ -8,6 +8,7 @@ import * as taskActions from "../../redux/actions/taskActions";
 import "./tasksPage.css";
 import {Button, Form, Modal} from "react-bootstrap";
 import {isEmpty, mapValues, keys} from "lodash";
+import { NavLink } from "react-router-dom";
 
 class TasksPage extends React.Component {
   constructor(props) {
@@ -117,7 +118,11 @@ class TasksPage extends React.Component {
                   
               </div>
             </div>
-            <Button>Results</Button>
+            <NavLink to="/results" activeStyle={{color: "#FFFFF"}}>
+                <Button>
+                    Results
+                </Button>
+            </NavLink>
             {this.state.isTaskSelectedToRun && 
             <Modal  
                 aria-labelledby="contained-modal-title-vcenter" 

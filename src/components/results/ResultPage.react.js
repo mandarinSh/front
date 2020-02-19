@@ -23,8 +23,11 @@ class ResultPage extends React.Component {
     }
   }
 
-  render() {
+  downloadResults = (result) => {
+    console.log(result);    
+  };
 
+  render() {
     return (
       <div>
         {this.props.loading ? (
@@ -34,11 +37,12 @@ class ResultPage extends React.Component {
             <h2>Results</h2>
             <div className="result-table">
               <div className="available-tasks-table">
-                <ResultTable results={this.props.results}/>
-                  
+                <ResultTable 
+                    results={this.props.results}
+                    downloadResults={this.downloadResults}
+                />                  
               </div>
             </div>
-            
           </div>          
         )}        
       </div>

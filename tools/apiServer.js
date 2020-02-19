@@ -77,9 +77,9 @@ function validateCourse(course) {
   return "";
 }
 
-function validateLog(log) {
-  if (!log.title) return "Title is required.";
-  if (!log.size) return "Size is required.";
-  if (!log.semester) return "Semester is required.";
-  return "";
-}
+// function validateLog(log) {
+//   if (!log.title) return "Title is required.";
+//   if (!log.size) return "Size is required.";
+//   if (!log.semester) return "Semester is required.";
+//   return "";
+// }

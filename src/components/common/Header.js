@@ -17,6 +17,10 @@ const Header = () => {
         Analyzer
       </NavLink>
       {" | "}
+      <NavLink to="/results" activeStyle={activeStyle}>
+        Results
+      </NavLink>
+      {" | "}
       <NavLink to="/about" activeStyle={activeStyle}>
         About
       </NavLink>

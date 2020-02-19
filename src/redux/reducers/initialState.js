@@ -1,4 +1,5 @@
 export default {
+  results: [],
   tasks: [],
   logs: [],
   courses: [],

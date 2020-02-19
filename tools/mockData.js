@@ -119,6 +119,25 @@ const courses = [
   }
 ];
 
+const results = [
+    {
+        id: 1,
+        title: "Result for task2"
+    },
+    {
+        id: 2,
+        title: "Result for task1"
+    },
+    {
+        id: 3,
+        title: "Result for task55"
+    },
+    {
+        id: 4,
+        title: "Result for task34"
+    }
+];
+
 const authors = [
   { id: 1, name: "Cory House" },
   { id: 2, name: "Scott Allen" },
@@ -134,6 +153,7 @@ const newCourse = {
 
 // Using CommonJS style export so we can consume via Node (without using Babel-node)
 module.exports = {
+  results,
   tasks,
   logs,
   newCourse,

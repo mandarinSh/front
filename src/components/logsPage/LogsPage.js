@@ -10,6 +10,10 @@ import {includes, pull} from "lodash";
 import "./logsPage.css";
 import {Button} from "react-bootstrap";
 
+// import axios from "axios";
+
+// const prefix = process.env.API_URL + "/api/v1";
+
 class LogsPage extends React.Component {
   constructor(props) {
     super(props);
@@ -27,7 +31,7 @@ class LogsPage extends React.Component {
     if (logs.length === 0) {
       actions.loadLogs().catch(error => {
         alert(`Loading logs failed${error}`);
-      })
+      });
     }
   }
 

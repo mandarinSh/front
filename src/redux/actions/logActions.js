@@ -3,7 +3,7 @@ import * as logApi from "../../api/logApi";
 import {apiCallError, beginApiCall} from "./apiStatusActions";
 
 export function loadLogsSuccess(logs) {
-  return {type: types.LOAD_LOGS_SUCCESS, logs};
+  return {type: types.LOAD_LOGS_SUCCESS, logs: logs};
 }
 
 export function loadLogs() {
@@ -11,8 +11,8 @@ export function loadLogs() {
     dispatch(beginApiCall());
     return logApi
       .getLogs()
-      .then(logs => {
-        dispatch(loadLogsSuccess(logs));
+      .then(response => {
+        dispatch(loadLogsSuccess(response.data.logs));
       })
       .catch(error => {
         dispatch(apiCallError(error));

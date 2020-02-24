@@ -9,6 +9,8 @@ import "./tasksPage.css";
 import {Button, Form, Modal} from "react-bootstrap";
 import {isEmpty, mapValues, keys} from "lodash";
 import { NavLink } from "react-router-dom";
+import axios from 'axios';
+const prefix = `${process.env.API_URL}/api/v1`;
 
 class TasksPage extends React.Component {
   constructor(props) {
@@ -30,7 +32,24 @@ class TasksPage extends React.Component {
   }
 
   runTask = () => {
-    console.log("run task");
+    const {actions, result} = this.props;
+    
+    return axios({
+        method: 'get',
+        url: `${prefix}/execute/${this.state.selectedTask.id}`,
+        headers: { "Access-Control-Allow-Origin": "*" },
+        crossdomain: true
+    })
+    // actions.runTask(this.state.selectedTask.id)
+        .then(response => {
+            const data = response.data;
+            let wnd = window.open("data:text/html;charset=utf-8,"+data);
+            wnd.document.write(data);
+            this.hideTaskModal();
+        })
+        .catch(error => {
+            alert(`Run task failed${error}`);
+        });
   };
 
   openTaskModal = (task) => {
@@ -82,8 +101,7 @@ class TasksPage extends React.Component {
             <Form.Group>
                  <Form.Label>This task does not need  any parameters to run!
                 Confirm running this task.</Form.Label>
-            </Form.Group>
-           
+            </Form.Group>           
         </span>
     );
   };
@@ -96,10 +114,10 @@ class TasksPage extends React.Component {
         });
   };
 
-
-
   render() {
     const {selectedTask, isTaskSelectedToRun} = this.state;
+    console.log(this.props.tasks);
+    console.log(this.props.result);
 
     return (
       <div>
@@ -114,8 +132,7 @@ class TasksPage extends React.Component {
                 <TasksTable
                   runTask={this.openTaskModal}
                   stopTask={this.stopTask}
-                  tasks={this.props.tasks}/>
-                  
+                  tasks={this.props.tasks}/>                  
               </div>
             </div>
             <NavLink to="/results" activeStyle={{color: "#FFFFF"}}>
@@ -156,6 +173,7 @@ class TasksPage extends React.Component {
 
 TasksPage.propTypes = {
   tasks: PropTypes.array.isRequired,
+  result: PropTypes.string,
   loading: PropTypes.bool.isRequired,
   actions: PropTypes.object.isRequired
 };
@@ -163,6 +181,7 @@ TasksPage.propTypes = {
 function mapStateToProps(state) {
   return {
     tasks: state.tasks,
+    result: state.result,
     loading: state.apiCallsInProgress > 0
   }
 }
@@ -170,7 +189,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
-      loadTasks: bindActionCreators(taskActions.loadTasks, dispatch)
+      loadTasks: bindActionCreators(taskActions.loadTasks, dispatch),
+      runTask: bindActionCreators(taskActions.runTask, dispatch)
     }
   }
 }

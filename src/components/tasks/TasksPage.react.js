@@ -33,10 +33,16 @@ class TasksPage extends React.Component {
 
   runTask = () => {
     const {actions, result} = this.props;
-    
+    const taskToRunParameters = this.state.taskToRunParameters;
+    let param = null;
+    if (!isEmpty(taskToRunParameters)) {
+        param = taskToRunParameters[0];
+    } 
+
     return axios({
         method: 'get',
-        url: `${prefix}/execute/${this.state.selectedTask.id}`,
+        url: `${prefix}/execute/${this.state.selectedTask.id}/${param}`,
+        // params: {...taskToRunParameters},
         headers: { "Access-Control-Allow-Origin": "*" },
         crossdomain: true
     })
@@ -70,8 +76,7 @@ class TasksPage extends React.Component {
 
   getParameterInput = (parameters) => {
       let values = [];
-      mapValues(parameters, function(value) {
-          
+      mapValues(parameters, function(value) {          
           values.push(value);
       });
 

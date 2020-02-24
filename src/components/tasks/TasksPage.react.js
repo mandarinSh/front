@@ -7,7 +7,7 @@ import {bindActionCreators} from "redux";
 import * as taskActions from "../../redux/actions/taskActions";
 import "./tasksPage.css";
 import {Button, Form, Modal} from "react-bootstrap";
-import {isEmpty, mapValues, keys} from "lodash";
+import {isEmpty, mapValues, keys, head} from "lodash";
 import { NavLink } from "react-router-dom";
 import axios from 'axios';
 const prefix = `${process.env.API_URL}/api/v1`;
@@ -36,7 +36,7 @@ class TasksPage extends React.Component {
     const taskToRunParameters = this.state.taskToRunParameters;
     let param = null;
     if (!isEmpty(taskToRunParameters)) {
-        param = taskToRunParameters[0];
+        param = head(taskToRunParameters);
     } 
 
     return axios({

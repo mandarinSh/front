@@ -9,8 +9,6 @@ import "./resultPage.css";
 class ResultPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
   }
 
   componentDidMount() {
@@ -19,6 +17,7 @@ class ResultPage extends React.Component {
       dispatch(loadResult())
         .then(() => {
           // TODO add notification
+          console.log(this.props.result);
         })
         .catch(error => {
           alert(`Loading results failed${error}`);
@@ -43,7 +42,7 @@ class ResultPage extends React.Component {
             <div className="result-table">
               <div className="available-tasks-table">
                 <ResultTable 
-                    results={result}
+                    result={result}
                     downloadResults={this.downloadResults}
                 />                  
               </div>
@@ -56,8 +55,11 @@ class ResultPage extends React.Component {
 }
 
 function mapStateToProps(state) {
+  const {resultreduce} = state;
+  const {result: result} = resultreduce || {result: []};
+
   return {
-    result: state.result,
+    result,
     loading: state.apiCallsInProgress > 0
   }
 }

@@ -8,12 +8,13 @@ export const LOAD_TASKS_ERROR = "LOAD_TASKS_ERROR";
 export const RUN_TASK_SUCCESS = "RUN_TASK_SUCCESS";
 export const RUN_TASK_ERROR = "RUN_TASK_ERROR";
 
-export default function tasks(state = initialState.tasks, action) {
+export default function tasks(state = initialState, action) {
   switch (action.type) {
     case LOAD_TASKS_SUCCESS:
       return {
         ...state,
-        tasks: action.tasks
+        mainTasks: action.mainTasks,
+        utilityTasks: action.utilityTasks
       };
     case RUN_TASK_SUCCESS:
         return {
@@ -38,7 +39,8 @@ export default function tasks(state = initialState.tasks, action) {
 function receiveTasksList(tasks) {
   return {
     type: LOAD_TASKS_SUCCESS,
-    tasks
+    mainTasks: tasks.mainTasks,
+    utilityTasks: tasks.utilityTasks
   };
 }
 
@@ -69,7 +71,9 @@ export function loadTasks() {
     return taskService
       .getTasks()
       .then(response => {
-        dispatch(receiveTasksList(response.data.tasks));
+        console.log(response);
+        // dispatch(receiveMainTasksList(response.data.mainTasks));
+        dispatch(receiveTasksList(response.data));
       })
       .catch(error => {
         dispatch(receiveTasksListError(error));

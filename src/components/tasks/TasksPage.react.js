@@ -20,11 +20,12 @@ class TasksPage extends React.Component {
   }
 
   componentDidMount() {
-    const {tasks, dispatch} = this.props;
-    if (!tasks) {
+    const {mainTasks, utilityTasks, dispatch} = this.props;
+    if (!mainTasks) {
       dispatch(loadTasks())
         .then(() => {
           // TODO add notification "tasks loaded"
+          console.log(this.props);
         })
         .catch(error => {
           alert(`Loading tasks failed${error}`);
@@ -113,12 +114,11 @@ class TasksPage extends React.Component {
 
   render() {
     const {selectedTask, isTaskSelectedToRun} = this.state;
-    console.log(this.props.tasks);
-    console.log(this.props.result);
+    const {loading, mainTasks, utilityTasks} = this.props;
 
     return (
       <div>
-        {this.props.loading ? (
+        {loading ? (
           <Spinner/>
         ) : (
           <div className="">
@@ -129,7 +129,7 @@ class TasksPage extends React.Component {
                 <TasksTable
                   runTask={this.openTaskModal}
                   stopTask={this.stopTask}
-                  tasks={this.props.tasks}/>                  
+                  tasks={mainTasks}/>
               </div>
             </div>
             <NavLink to="/results" activeStyle={{color: "#FFFFF"}}>
@@ -138,7 +138,7 @@ class TasksPage extends React.Component {
                 </Button>
             </NavLink>
             {this.state.isTaskSelectedToRun && 
-            <Modal  
+            <Modal
                 aria-labelledby="contained-modal-title-vcenter" 
                 centered 
                 show={isTaskSelectedToRun} 
@@ -169,9 +169,15 @@ class TasksPage extends React.Component {
 }
 
 function mapStateToProps(state) {
+  const {taskreduce, resultreduce} = state;
+  const {mainTasks: mainTasks} = taskreduce || {mainTasks: []};
+  const {utilityTasks: utilityTasks} = taskreduce || {utilityTasks: []};
+  const {result: result} = resultreduce || {result: []};
+
   return {
-    tasks: state.tasks,
-    result: state.result,
+    mainTasks,
+    utilityTasks,
+    result,
     loading: state.apiCallsInProgress > 0
   }
 }

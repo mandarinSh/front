@@ -1,5 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
+import {map} from 'lodash';
+
 import {Form, Table} from "react-bootstrap";
 
 const AvailableLogsTable = ({logs, selectLog}) => (
@@ -13,7 +14,7 @@ const AvailableLogsTable = ({logs, selectLog}) => (
     </tr>
     </thead>
     <tbody>
-    {logs.map(log => {
+    {map(logs, log => {
       return (
         <tr key={log.id}>
           <td>
@@ -37,10 +38,5 @@ const AvailableLogsTable = ({logs, selectLog}) => (
     </tbody>
   </Table>
 );
-
-AvailableLogsTable.propTypes = {
-  logs: PropTypes.array.isRequired,
-  selectLog: PropTypes.func.isRequired
-};
 
 export default AvailableLogsTable;

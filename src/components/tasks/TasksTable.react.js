@@ -1,5 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
+import {map} from 'lodash';
+
 import {Table, OverlayTrigger, Tooltip, Button} from "react-bootstrap";
 
 const TasksTable = ({tasks, runTask, stopTask}) => (
@@ -13,7 +14,7 @@ const TasksTable = ({tasks, runTask, stopTask}) => (
     </tr>
     </thead>
     <tbody>
-    {tasks.map(task => {
+    {map(tasks, task => {
       return (
         <tr key={task.id}>
           <td>
@@ -41,11 +42,5 @@ const TasksTable = ({tasks, runTask, stopTask}) => (
     </tbody>
   </Table>
 );
-
-TasksTable.propTypes = {
-  tasks: PropTypes.array.isRequired,
-  runTask: PropTypes.func.isRequired,
-  stopTask: PropTypes.func.isRequired
-};
 
 export default TasksTable;

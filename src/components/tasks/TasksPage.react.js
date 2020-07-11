@@ -1,16 +1,13 @@
 import React from "react";
 import {connect} from "react-redux";
-import PropTypes from "prop-types";
+import {isEmpty, mapValues, keys, head} from "lodash";
+
 import Spinner from "../common/Spinner";
 import TasksTable from "./TasksTable.react";
-import {bindActionCreators} from "redux";
-import * as taskActions from "../../redux/actions/taskActions";
-import "./tasksPage.css";
 import {Button, Form, Modal} from "react-bootstrap";
-import {isEmpty, mapValues, keys, head} from "lodash";
-import { NavLink } from "react-router-dom";
-import axios from 'axios';
-const prefix = `${process.env.API_URL}/api/v1`;
+import {NavLink} from "react-router-dom";
+import {runTask, loadTasks} from '../../redux/reducers/taskReducer';
+import "./tasksPage.css";
 
 class TasksPage extends React.Component {
   constructor(props) {
@@ -23,39 +20,34 @@ class TasksPage extends React.Component {
   }
 
   componentDidMount() {
-    const {tasks, actions} = this.props;
-    if (tasks.length === 0) {
-      actions.loadTasks().catch(error => {
-        alert(`Loading tasks failed${error}`);
-      })
+    const {tasks, dispatch} = this.props;
+    if (!tasks) {
+      dispatch(loadTasks())
+        .then(() => {
+          // TODO add notification "tasks loaded"
+        })
+        .catch(error => {
+          alert(`Loading tasks failed${error}`);
+        })
     }
   }
 
   runTask = () => {
-    const {actions, result} = this.props;
+    const {dispatch} = this.props;
+    const {selectedTask} = this.state;
     const taskToRunParameters = this.state.taskToRunParameters;
     let param = null;
     if (!isEmpty(taskToRunParameters)) {
         param = head(taskToRunParameters);
-    } 
+    }
 
-    return axios({
-        method: 'get',
-        url: `${prefix}/execute/${this.state.selectedTask.id}/${param}`,
-        // params: {...taskToRunParameters},
-        headers: { "Access-Control-Allow-Origin": "*" },
-        crossdomain: true
-    })
-    // actions.runTask(this.state.selectedTask.id)
-        .then(response => {
-            const data = response.data;
-            let wnd = window.open("data:text/html;charset=utf-8,"+data);
-            wnd.document.write(data);
-            this.hideTaskModal();
-        })
-        .catch(error => {
-            alert(`Run task failed${error}`);
-        });
+    dispatch(runTask(selectedTask.id, param))
+      .then(() => {
+        const {result} = this.props;
+        let wnd = window.open(`data:text/html;charset=utf-8,${result}`);
+        wnd.document.write(result);
+        this.hideTaskModal();
+      });
   };
 
   openTaskModal = (task) => {
@@ -176,13 +168,6 @@ class TasksPage extends React.Component {
   }
 }
 
-TasksPage.propTypes = {
-  tasks: PropTypes.array.isRequired,
-  result: PropTypes.string,
-  loading: PropTypes.bool.isRequired,
-  actions: PropTypes.object.isRequired
-};
-
 function mapStateToProps(state) {
   return {
     tasks: state.tasks,
@@ -191,16 +176,4 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: {
-      loadTasks: bindActionCreators(taskActions.loadTasks, dispatch),
-      runTask: bindActionCreators(taskActions.runTask, dispatch)
-    }
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TasksPage);
+export default connect(mapStateToProps)(TasksPage);

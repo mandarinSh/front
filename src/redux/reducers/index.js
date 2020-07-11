@@ -1,14 +1,14 @@
 import { combineReducers } from "redux";
-import logs from "./logsReducer";
-import tasks from "./taskReducer";
-import results from "./resultsReducer.react";
-import apiCallsInProgress from "./apiStatusReducer";
+import logsreduce from "./logsReducer";
+import taskreduce from "./taskReducer";
+import resultreduce from "./resultsReducer";
+import apicallsinprogressreduce from "./apiStatusReducer";
 
 const rootReducer = combineReducers({
-  results,
-  tasks,
-  logs,
-  apiCallsInProgress
+  resultreduce,
+  taskreduce,
+  logsreduce,
+  apicallsinprogressreduce
 });
 
 export default rootReducer;

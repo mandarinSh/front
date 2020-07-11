@@ -1,10 +1,9 @@
 import React from "react";
 import {connect} from "react-redux";
-import PropTypes from "prop-types";
+
 import Spinner from "../common/Spinner";
 import ResultTable from "./ResultTable.react";
-import {bindActionCreators} from "redux";
-import * as resultActions from "../../redux/actions/resultActions.react";
+import {loadResult} from '../../redux/reducers/resultsReducer';
 import "./resultPage.css";
 
 class ResultPage extends React.Component {
@@ -15,10 +14,14 @@ class ResultPage extends React.Component {
   }
 
   componentDidMount() {
-    const {results, actions} = this.props;
-    if (results.length === 0) {
-      actions.loadResults().catch(error => {
-        alert(`Loading results failed${error}`);
+    const {result, dispatch} = this.props;
+    if (!result) {
+      dispatch(loadResult())
+        .then(() => {
+          // TODO add notification
+        })
+        .catch(error => {
+          alert(`Loading results failed${error}`);
       })
     }
   }
@@ -28,9 +31,11 @@ class ResultPage extends React.Component {
   };
 
   render() {
+    const {loading, result} = this.props;
+
     return (
       <div>
-        {this.props.loading ? (
+        {loading ? (
           <Spinner/>
         ) : (
           <div className="">
@@ -38,7 +43,7 @@ class ResultPage extends React.Component {
             <div className="result-table">
               <div className="available-tasks-table">
                 <ResultTable 
-                    results={this.props.results}
+                    results={result}
                     downloadResults={this.downloadResults}
                 />                  
               </div>
@@ -50,28 +55,11 @@ class ResultPage extends React.Component {
   }
 }
 
-ResultPage.propTypes = {
-    results: PropTypes.array.isRequired,
-    loading: PropTypes.bool.isRequired,
-    actions: PropTypes.object.isRequired
-};
-
 function mapStateToProps(state) {
   return {
-    results: state.results,
+    result: state.result,
     loading: state.apiCallsInProgress > 0
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: {
-      loadResults: bindActionCreators(resultActions.loadResults, dispatch)
-    }
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ResultPage);
+export default connect(mapStateToProps)(ResultPage);

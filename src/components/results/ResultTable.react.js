@@ -1,8 +1,9 @@
 import React from "react";
-import PropTypes from "prop-types";
+import {map} from 'lodash';
+
 import {Table, Button} from "react-bootstrap";
 
-const ResultTable = ({results, downloadResults}) => (
+const ResultTable = ({result, downloadResults}) => (
   <Table bordered hover>
     <thead>
     <tr>
@@ -12,21 +13,21 @@ const ResultTable = ({results, downloadResults}) => (
     </tr>
     </thead>
     <tbody>
-    {results.map(result => {
+    {map(result, res => {
       return (
-        <tr key={result.id}>
+        <tr key={res.id}>
           <td className="id-column">
-              {result.id}
+              {res.id}
           </td>
           <td>
               <>
                 <span>
-                    {result.title}
+                    {res.title}
                 </span>
               </>                    
           </td>
           <td className="actions-column">
-              <Button onClick={() => downloadResults(result)}>Download</Button>
+              <Button onClick={() => downloadResults(res)}>Download</Button>
           </td>
         </tr>
       )
@@ -34,10 +35,5 @@ const ResultTable = ({results, downloadResults}) => (
     </tbody>
   </Table>
 );
-
-ResultTable.propTypes = {
-    results: PropTypes.array.isRequired,
-    downloadResults: PropTypes.func.isRequired
-};
 
 export default ResultTable;

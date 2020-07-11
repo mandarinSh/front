@@ -1,14 +1,13 @@
 import React from "react";
 import {connect} from "react-redux";
-import PropTypes from "prop-types";
+import {isEmpty, mapValues, keys, head} from "lodash";
+
 import Spinner from "../common/Spinner";
 import TasksTable from "./TasksTable.react";
-import {bindActionCreators} from "redux";
-import * as taskActions from "../../redux/actions/taskActions";
-import "./tasksPage.css";
 import {Button, Form, Modal} from "react-bootstrap";
-import {isEmpty, mapValues, keys} from "lodash";
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
+import {runTask, loadTasks} from '../../redux/reducers/taskReducer';
+import "./tasksPage.css";
 
 class TasksPage extends React.Component {
   constructor(props) {
@@ -21,16 +20,34 @@ class TasksPage extends React.Component {
   }
 
   componentDidMount() {
-    const {tasks, actions} = this.props;
-    if (tasks.length === 0) {
-      actions.loadTasks().catch(error => {
-        alert(`Loading tasks failed${error}`);
-      })
+    const {tasks, dispatch} = this.props;
+    if (!tasks) {
+      dispatch(loadTasks())
+        .then(() => {
+          // TODO add notification "tasks loaded"
+        })
+        .catch(error => {
+          alert(`Loading tasks failed${error}`);
+        })
     }
   }
 
   runTask = () => {
-    console.log("run task");
+    const {dispatch} = this.props;
+    const {selectedTask} = this.state;
+    const taskToRunParameters = this.state.taskToRunParameters;
+    let param = null;
+    if (!isEmpty(taskToRunParameters)) {
+        param = head(taskToRunParameters);
+    }
+
+    dispatch(runTask(selectedTask.id, param))
+      .then(() => {
+        const {result} = this.props;
+        let wnd = window.open(`data:text/html;charset=utf-8,${result}`);
+        wnd.document.write(result);
+        this.hideTaskModal();
+      });
   };
 
   openTaskModal = (task) => {
@@ -51,8 +68,7 @@ class TasksPage extends React.Component {
 
   getParameterInput = (parameters) => {
       let values = [];
-      mapValues(parameters, function(value) {
-          
+      mapValues(parameters, function(value) {          
           values.push(value);
       });
 
@@ -82,8 +98,7 @@ class TasksPage extends React.Component {
             <Form.Group>
                  <Form.Label>This task does not need  any parameters to run!
                 Confirm running this task.</Form.Label>
-            </Form.Group>
-           
+            </Form.Group>           
         </span>
     );
   };
@@ -96,10 +111,10 @@ class TasksPage extends React.Component {
         });
   };
 
-
-
   render() {
     const {selectedTask, isTaskSelectedToRun} = this.state;
+    console.log(this.props.tasks);
+    console.log(this.props.result);
 
     return (
       <div>
@@ -114,8 +129,7 @@ class TasksPage extends React.Component {
                 <TasksTable
                   runTask={this.openTaskModal}
                   stopTask={this.stopTask}
-                  tasks={this.props.tasks}/>
-                  
+                  tasks={this.props.tasks}/>                  
               </div>
             </div>
             <NavLink to="/results" activeStyle={{color: "#FFFFF"}}>
@@ -154,28 +168,12 @@ class TasksPage extends React.Component {
   }
 }
 
-TasksPage.propTypes = {
-  tasks: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired,
-  actions: PropTypes.object.isRequired
-};
-
 function mapStateToProps(state) {
   return {
     tasks: state.tasks,
+    result: state.result,
     loading: state.apiCallsInProgress > 0
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: {
-      loadTasks: bindActionCreators(taskActions.loadTasks, dispatch)
-    }
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TasksPage);
+export default connect(mapStateToProps)(TasksPage);

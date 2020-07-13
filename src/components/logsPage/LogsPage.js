@@ -5,7 +5,7 @@ import {includes, pull} from "lodash";
 import Spinner from "../common/Spinner";
 import AvailableLogsTable from "./AvailableLogsTable";
 import LoadedLogsTable from "./LoadedLogsTable";
-import {loadLogs} from '../../redux/reducers/logsReducer';
+import logsreduce, {loadLogs} from '../../redux/reducers/logsReducer';
 import {Button} from "react-bootstrap";
 import "./logsPage.css";
 
@@ -70,6 +70,7 @@ class LogsPage extends React.Component {
 
   componentDidMount() {
     const {logs, dispatch} = this.props;
+
     if (!logs) {
       dispatch(loadLogs())
         .then(() => {
@@ -83,8 +84,11 @@ class LogsPage extends React.Component {
 }
 
 function mapStateToProps(state) {
+  const {logsreduce} = state;
+  const {logs: logs} = logsreduce || {logs: []};
+
   return {
-    logs: state.logs,
+    logs,
     loading: state.apiCallsInProgress > 0
   }
 }

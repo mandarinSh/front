@@ -23,6 +23,7 @@ export default function logsReducer(state = initialState.logs, action) {
 }
 
 function receiveLogs(logs) {
+  console.log(logs);
   return {
     type: LOAD_LOGS_SUCCESS,
     logs: logs

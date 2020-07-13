@@ -13,7 +13,10 @@ const ResultTable = ({result, downloadResults}) => (
     </tr>
     </thead>
     <tbody>
-    {map(result, res => {
+    {console.log(result)}
+    {
+      map(result, res => {
+      console.log(res);
       return (
         <tr key={res.id}>
           <td className="id-column">

@@ -1,6 +1,7 @@
 import axios from 'axios';
+import {handleError, handleResponse} from "./apiUtils";
 
-const baseUrl = process.env.API_URL + "results/";
+const baseUrl = process.env.API_URL + "/results/";
 
 // export function getResults() {
 //   return fetch(baseUrl)

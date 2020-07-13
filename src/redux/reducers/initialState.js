@@ -1,7 +1,7 @@
 export default {
-  results: [],
-  result: "",
-  tasks: [],
-  logs: [],
-  apiCallsInProgress: 0
+    results: [],
+    result: "",
+    tasks: [],
+    logs: [],
+    apiCallsInProgress: 0,
 };

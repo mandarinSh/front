@@ -1,0 +1,127 @@
+{
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "detect"
+    }
+  },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "parser": "babel-eslint",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "plugins": [
+    "react",
+    "lodash",
+    "mocha",
+    "notice",
+    "react-hooks"
+  ],
+  "rules": {
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "error"
+        ]
+      }
+    ],
+    "react/jsx-no-literals": [
+      "error",
+      {
+        "noStrings": false
+      }
+    ],
+    "react/prop-types": 0,
+    "mocha/no-exclusive-tests": "error",
+    "react/no-deprecated": 2,
+    "react/no-string-refs": "off",
+    "react/no-unused-state": "error",
+    "react/no-unsafe": "warn",
+    "no-useless-escape": "off",
+    "no-use-before-define": "off",
+    "react/no-unknown-property": "off",
+    "accessor-pairs": "error",
+    "no-caller": "error",
+    "no-case-declarations": "error",
+    "no-div-regex": "error",
+    "no-eval": "error",
+    "no-extend-native": "error",
+    "no-extra-bind": "error",
+    "no-extra-label": "error",
+    "no-fallthrough": "error",
+    "no-implicit-globals": "error",
+    "no-implied-eval": "error",
+    "no-iterator": "error",
+    "no-labels": "error",
+    "no-new-func": "error",
+    "no-new-wrappers": "error",
+    "no-octal": "error",
+    "no-octal-escape": "error",
+    "no-proto": "error",
+    "no-redeclare": "error",
+    "no-script-url": "error",
+    "no-self-assign": "error",
+    "no-self-compare": "error",
+    "no-throw-literal": "error",
+    "no-unmodified-loop-condition": "error",
+    "no-unused-labels": "error",
+    "no-useless-call": "error",
+    "no-void": "error",
+    "no-with": "error",
+    "prefer-promise-reject-errors": "error",
+    "prefer-const": "warn",
+    "wrap-iife": "error",
+    "yoda": "error",
+    "no-sequences": "error",
+    "no-floating-decimal": "error",
+    "no-lone-blocks": "error",
+    "no-new": "error",
+    "no-alert": "error",
+    "guard-for-in": "off",
+    "no-loop-func": "off",
+    "no-useless-return": "error",
+    "no-process-env": "off",
+    "no-implicit-coercion": "error",
+    "default-case": "error",
+    "no-useless-concat": "error",
+    "no-empty-function": "error",
+    "no-param-reassign": "off",
+    "no-eq-null": "error",
+    "curly": "error",
+    "no-return-assign": "off",
+    "radix": "off",
+    "class-methods-use-this": "off",
+    "vars-on-top": "off",
+    "dot-notation": "off",
+    "no-warning-comments": "off",
+    "no-else-return": "off",
+    "no-multi-spaces": "off",
+    "dot-location": "off",
+    "no-magic-numbers": "off",
+    "no-invalid-this": "off",
+    "no-unused-expressions": "off",
+    "block-scoped-var": "error",
+    "complexity": ["error", { "max": 55 }],
+    "consistent-return": "off",
+    "eqeqeq": "off",
+    "no-const-assign": "error",
+    "no-duplicate-imports": "error",
+    "array-callback-return": "error",
+    "no-dupe-class-members": "off",
+    "lodash/collection-method-value": "error",
+    "lodash/collection-return": "error",
+    "lodash/no-unbound-this": "error",
+    "lodash/prefer-map": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
+  },
+  "parserOptions": {
+    "sourceType": "module"
+  }
+}

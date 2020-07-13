@@ -1,5 +1,5 @@
-import axios from 'axios';
-import {handleError, handleResponse} from "./apiUtils";
+import axios from "axios";
+// import {handleError, handleResponse} from "./apiUtils";
 
 const baseUrl = process.env.API_URL + "/results/";
 
@@ -10,10 +10,10 @@ const baseUrl = process.env.API_URL + "/results/";
 // }
 
 export function getResult() {
-  return axios({
-    method: 'get',
-    url: baseUrl,
-    headers: {"Access-Control-Allow-Origin": "*"},
-    crossdomain: true
-  });
+    return axios({
+        method: "get",
+        url: baseUrl,
+        headers: {"Access-Control-Allow-Origin": "*"},
+        crossdomain: true,
+    });
 }

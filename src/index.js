@@ -6,8 +6,7 @@ import {Provider as ReduxProvider} from "react-redux";
 
 import App from "./components/App.react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./index.css";
-import "antd/dist/antd.css";
+import "./main.scss";
 
 const store = configureStore();
 

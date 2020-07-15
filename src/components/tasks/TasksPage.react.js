@@ -7,7 +7,7 @@ import TasksTable from "./TasksTable.react";
 import {Button, Form, Modal} from "react-bootstrap";
 import {NavLink} from "react-router-dom";
 import {runTask, loadTasks} from "../../redux/reducers/taskReducer";
-import "./tasksPage.css";
+// import "./tasksPage.css";
 
 class TasksPage extends React.Component {
     constructor(props) {
@@ -129,8 +129,12 @@ class TasksPage extends React.Component {
                         <h2>{"Analyzer"}</h2>
                         <div className="tasks-tables">
                             <div className="available-tasks-table">
-                                <h5>{"Available Tasks"}</h5>
+                                <h5>{"Main Tasks"}</h5>
                                 <TasksTable runTask={this.openTaskModal} stopTask={this.stopTask} tasks={mainTasks} />
+                            </div>
+                            <div className="available-tasks-table utility-tasks">
+                                <h5>{"Utility Tasks"}</h5>
+                                <TasksTable runTask={this.openTaskModal} stopTask={this.stopTask} tasks={utilityTasks} />
                             </div>
                         </div>
                         <NavLink to="/results" activeStyle={{color: "#FFFFF"}}>

@@ -8,7 +8,7 @@ import LogsPage from "./logsPage/LogsPage";
 import TasksPage from "./tasks/TasksPage.react";
 import ResultPage from "./results/ResultPage.react";
 import {ToastContainer} from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// import "react-toastify/dist/ReactToastify.css";
 
 function App() {
     return (

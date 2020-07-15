@@ -7,7 +7,7 @@ import AvailableLogsTable from "./AvailableLogsTable";
 import LoadedLogsTable from "./LoadedLogsTable";
 import {loadLogs} from "../../redux/reducers/logsReducer";
 import {Button} from "react-bootstrap";
-import "./logsPage.css";
+// import "./logsPage.css";
 
 class LogsPage extends React.Component {
     constructor(props) {

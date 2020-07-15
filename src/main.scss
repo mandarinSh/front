@@ -1,0 +1,14 @@
+@import "./sass/_variables";
+@import "./sass/_logsPage";
+@import "./sass/_tasksPage";
+@import "./sass/_resultPage";
+
+$bg-color: white;
+
+body {
+  background: $bg-color;
+}
+
+nav {
+  padding: 20px 0 20px 0;
+}

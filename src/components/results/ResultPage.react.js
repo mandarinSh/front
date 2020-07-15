@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import Spinner from "../common/Spinner";
 import ResultTable from "./ResultTable.react";
 import {loadResult} from "../../redux/reducers/resultsReducer";
-import "./resultPage.css";
+// import "./resultPage.css";
 
 class ResultPage extends React.Component {
     constructor(props) {

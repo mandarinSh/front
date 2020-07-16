@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 process.env.NODE_ENV = "development";
+process.env.EXTEND_ESLINT=true;
 
 module.exports = {
   mode: "development",
@@ -39,7 +40,7 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ["babel-loader", "eslint-loader"]
+        use: ["babel-loader"]
       },
       {
         test: /\.css$/,
@@ -55,6 +56,24 @@ module.exports = {
           fallback: 'style-loader',
           use: ['css-loader', 'sass-loader']
         })
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 400000
+          }
+        }
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf)$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            limit: 400000
+          }
+        }
       }
     ]
   }

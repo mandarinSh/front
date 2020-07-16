@@ -39,7 +39,7 @@ class ResultPage extends React.Component {
                 {loading ? (
                     <Spinner />
                 ) : (
-                    <div className="">
+                    <div className="page">
                         <h2>{"Results"}</h2>
                         <div className="result-table">
                             <div className="available-tasks-table">

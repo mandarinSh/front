@@ -125,7 +125,7 @@ class TasksPage extends React.Component {
                 {loading ? (
                     <Spinner />
                 ) : (
-                    <div className="">
+                    <div className="page">
                         <h2>{"Analyzer"}</h2>
                         <div className="tasks-tables">
                             <div className="available-tasks-table">

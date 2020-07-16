@@ -7,8 +7,15 @@ $bg-color: white;
 
 body {
   background: $bg-color;
+  .jumbotron {
+    padding: 4rem 8rem;
+  }
+}
+
+.page {
+  padding: 4rem 8rem;
 }
 
 nav {
-  padding: 20px 0 20px 0;
+  background: $main-blue-color !important;
 }

@@ -43,7 +43,7 @@ class LogsPage extends React.Component {
                 {loading ? (
                     <Spinner />
                 ) : (
-                    <div className="">
+                    <div className="page">
                         <h2>{"Select Logs"}</h2>
                         <div className="log-tables">
                             <div className="available-logs-table">

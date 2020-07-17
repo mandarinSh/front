@@ -1,8 +1,10 @@
 const webpack = require("webpack");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 process.env.NODE_ENV = "development";
+process.env.EXTEND_ESLINT=true;
 
 module.exports = {
   mode: "development",
@@ -10,7 +12,7 @@ module.exports = {
   devtool: "cheap-module-source-map",
   entry: "./src/index",
   output: {
-    path: path.resolve(__dirname, "build"),
+    path: path.resolve(__dirname, "dist"),
     publicPath: "/",
     filename: "bundle.js"
   },
@@ -30,18 +32,48 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "src/index.html",
       favicon: "src/favicon.ico"
-    })
+    }),
+    new ExtractTextPlugin('style.css')
   ],
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ["babel-loader", "eslint-loader"]
+        use: ["babel-loader"]
       },
       {
-        test: /(\.css)$/,
-        use: ["style-loader", "css-loader"]
+        test: /\.css$/,
+        use:
+            [
+              {loader: 'style-loader'},
+              {loader: 'css-loader'}
+            ]
+      },
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'sass-loader']
+        })
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 400000
+          }
+        }
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf)$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            limit: 400000
+          }
+        }
       }
     ]
   }

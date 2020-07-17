@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import Spinner from "../common/Spinner";
 import ResultTable from "./ResultTable.react";
 import {loadResult} from "../../redux/reducers/resultsReducer";
-import "./resultPage.css";
+// import "./resultPage.css";
 
 class ResultPage extends React.Component {
     constructor(props) {
@@ -39,7 +39,7 @@ class ResultPage extends React.Component {
                 {loading ? (
                     <Spinner />
                 ) : (
-                    <div className="">
+                    <div className="page">
                         <h2>{"Results"}</h2>
                         <div className="result-table">
                             <div className="available-tasks-table">

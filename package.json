@@ -19,6 +19,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
+    "@trendmicro/react-iframe": "^1.0.1",
     "@trendmicro/react-sidenav": "^0.5.0",
     "antd": "3.26.11",
     "axios": "0.19.2",

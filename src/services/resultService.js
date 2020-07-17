@@ -1,7 +1,8 @@
 import axios from "axios";
 // import {handleError, handleResponse} from "./apiUtils";
 
-const baseUrl = process.env.API_URL + "/results/";
+// const baseUrl = process.env.API_URL + "/results";
+const prefix = `${process.env.API_URL}/api/v1`;
 
 // export function getResults() {
 //   return fetch(baseUrl)
@@ -12,7 +13,16 @@ const baseUrl = process.env.API_URL + "/results/";
 export function getResult() {
     return axios({
         method: "get",
-        url: baseUrl,
+        url: `${prefix}/results`,
+        headers: {"Access-Control-Allow-Origin": "*"},
+        crossdomain: true,
+    });
+}
+
+export function getChartByID(id) {
+    return axios({
+        method: "get",
+        url: `${prefix}/${id}`,
         headers: {"Access-Control-Allow-Origin": "*"},
         crossdomain: true,
     });

@@ -48,19 +48,19 @@ export function loadResult() {
                     const res = [
                         {
                             id: 1,
-                            title: "Result for task 'User time on course'",
+                            title: "Result for task «User time on course»",
                         },
                         {
                             id: 2,
-                            title: "Result for task 'Users who enrolled but not started'",
+                            title: "Result for task «Users who enrolled but not started»",
                         },
                         {
                             id: 3,
-                            title: "Result for task 'Course activity'",
+                            title: "Result for task «Course activity»",
                         },
                         {
                             id: 4,
-                            title: "Result for task 'Page activity on course'",
+                            title: "Result for task «Page activity on course»",
                         }
                     ];
 

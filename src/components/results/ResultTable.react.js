@@ -25,7 +25,7 @@ const ResultTable = ({result, downloadResults, showChart}) => (
                             </>
                         </td>
                         <td className="actions-column">
-                            <Button className="action-btn" onClick={() => downloadResults(res)}>{"Download"}</Button>
+                            {/*<Button className="action-btn" onClick={() => downloadResults(res)}>{"Download"}</Button>*/}
                             <Button className="action-btn" onClick={() => showChart(res)}>{"Show chart"}</Button>
                         </td>
                     </tr>

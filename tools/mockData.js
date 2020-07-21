@@ -49,19 +49,19 @@ const tasks = [
 const results = [
     {
         id: 1,
-        title: "Result for task2",
+        title: "Result for task 'User time on course'",
     },
     {
         id: 2,
-        title: "Result for task1",
+        title: "Result for task 'Users who enrolled but not started'",
     },
     {
         id: 3,
-        title: "Result for task55",
+        title: "Result for task 'Course activity'",
     },
     {
         id: 4,
-        title: "Result for task34",
+        title: "Result for task 'Page activity on course'",
     },
 ];
 
